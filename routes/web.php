@@ -54,7 +54,8 @@ Route::get('/readQuery', function(){
     $results = DB::select('select * from posts');
     // return $results;
     // return var_dump($results);
-    $results = DB::select('select * from posts where id = ?',[3]);
+    // $results = DB::select('select * from posts where id = ?',[3]);
+    $results = DB::select('select * from posts');
     foreach ($results as $post) {
         echo "<ul> - " .$post->title . " " .$post->content . " created at: " .$post->created_at. "</ul>";   
     }
@@ -63,13 +64,68 @@ Route::get('/readQuery', function(){
 //update data
 
 Route::get('/updateQuery', function(){
-
     $update = DB::update('update posts set title ="post 4 title" where id = ?',[4]);
     return $update;
 });
 
 //delete date
-Route::get ('deleteQuery', function(){
+Route::get ('/deleteQuery', function(){
     $delete = DB::delete('delete from posts where id =? ',[3]);
     return $delete;
+});
+
+/*
+|--------------------------------------------------------------------------
+| Eloquent
+|--------------------------------------------------------------------------
+*/
+
+//read all the posts 
+
+use App\post;
+
+Route::get('read/', function(){
+    $posts = Post::all();
+    foreach ($posts as $post) {
+        echo "<ul> - " .$post->title . " " .$post->content . " created at: " .$post->created_at. "</ul>";  
+    }
+});
+
+//find and show all the posts 
+
+Route::get('/findPostTitle/{id}', function($id){
+    $postFound = Post::find($id);
+    return "Post Title: " . $postFound->title . " " . "Post Content: " . $postFound->content; 
+});
+
+//find with where condition
+Route::get('findwhere', function(){
+    // $postWhere= Post::where('id', 7 )->orderBy('id','desc')->take(1)->get();
+    // $postWhere= Post::where('id', 7 )->get();
+    $postWhere= Post::where('id', '<', 10)->get();
+    return $postWhere;
+});
+
+//find o give not found
+Route::get('findMore', function(){
+    $postMore = Post::findOrFail(5);
+    return $postMore;
+});
+
+//insert Data basic
+Route::get('/insertbasic', function(){
+    $postToInsert = new Post;
+    $postToInsert->title = 'Another Title x';
+    $postToInsert->content = 'Another Title for everyone x.';
+    $postToInsert->save();
+});
+
+//update Data
+
+Route::get('/updatebasicpost/{id}', function($id){
+    $postToUpdate = Post::find($id);
+    // return $postToUpdate;
+    $postToUpdate->title = 'Another Title ' .$id ;
+    $postToUpdate->content = "Another Title $id for everyone";
+    $postToUpdate->save();
 });
