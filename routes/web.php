@@ -212,12 +212,12 @@ Route::get ('showpostperuser1/{id}',function($id){
 |--------------------------------------------------------------------------
 */
 
-//show 1 post per user
+//One to one relationship. show 1 post per user
 Route::get ('show1postperuser/{id}',function($id){
     return User::find($id)->post;
 });
 
-//show all posts per user
+//One to many relationship. show all posts per user
 Route::get ('showpostperuser2/{id}',function($id){
     return User::find($id)->posts;
 });
