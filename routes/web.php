@@ -128,11 +128,8 @@ Route::get('/updatebasicpost/{id}', function($id){
 });
 
 //create multiple records
-Route::get('/createonepost/{id}', function ($id){
-    // $date = new DateTime();
-    // $date = $date->format('Y-m-d H:i:s');
-    // Post::create(['title'=>'What is up men?', 'content'=>'Impresive, massive, great, awasome and cool!', 'created_at'=>$date]);
-    Post::create(['title'=>'What is up men? '.$id, 'content'=>'Impresive, massive, great, awasome and cool! '.$id]);
+Route::get('/createonepost/{id}/{user_id}', function ($id, $user_id){
+    Post::create(['title'=>'What is up men? '.$id, 'user_id'=> $user_id, 'content'=>'Impresive, massive, great, awasome and cool! '.$id ]);
 });
 
 //update
@@ -195,4 +192,32 @@ Route::get('forcedelete/{id}', function($id){
 //delete permannetly softdeleted(trashed elements)
 Route::get('forcedeletetrashed', function(){
     Post::onlyTrashed()->forcedelete();
+});
+
+use App\user;
+//create user
+Route::get('createuser/{name}/{email}/{password}', function($name, $email, $password){
+    User::create(['name'=> $name, 'email'=> $email, 'password'=>$password]);
+});
+
+//show all the users per user
+Route::get ('showpostperuser1/{id}',function($id){
+    $postPerUser = Post::where('user_id', $id)->get();
+    return $postPerUser;
+});
+
+/*
+|--------------------------------------------------------------------------
+| Eloquent Relationships
+|--------------------------------------------------------------------------
+*/
+
+//show 1 post per user
+Route::get ('show1postperuser/{id}',function($id){
+    return User::find($id)->post;
+});
+
+//show all posts per user
+Route::get ('showpostperuser2/{id}',function($id){
+    return User::find($id)->posts;
 });

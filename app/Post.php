@@ -15,7 +15,8 @@ class Post extends Model
     protected $fillable = [
             'title',
             'content',
-            'created_at'
+            'created_at',
+            'user_id'
         ];
     //use SoftDeletes for adding post to trash (not permanetly)
     use SoftDeletes;

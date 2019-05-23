@@ -104,7 +104,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function showPost($id,$name, $surname)
+    public function showPost($id, $name, $surname)
     {
         // return "this is the show methdod !! for the post " . $id;
         // return view('post')->with('id',$id);
