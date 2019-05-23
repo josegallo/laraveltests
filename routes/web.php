@@ -129,3 +129,37 @@ Route::get('/updatebasicpost/{id}', function($id){
     $postToUpdate->content = "Another Title $id for everyone";
     $postToUpdate->save();
 });
+
+//create multiple records
+
+Route::get('/createonepost/{id}', function ($id){
+    // $date = new DateTime();
+    // $date = $date->format('Y-m-d H:i:s');
+    // Post::create(['title'=>'What is up men?', 'content'=>'Impresive, massive, great, awasome and cool!', 'created_at'=>$date]);
+    Post::create(['title'=>'What is up men? '.$id, 'content'=>'Impresive, massive, great, awasome and cool! '.$id]);
+});
+
+//update
+
+Route::get('/updateeloquent/{id}', function($id){
+    Post::where('id',$id)->where('is_admin',0)->update(['title'=>'Title Sup '. $id, 'content'=>'This is the new content updated for post '. $id]);
+});
+
+//delete 1st method
+Route::get('/deleteeloquent/{id}', function($id){
+    $postToDelete = Post::find($id);
+    $postToDelete->delete();
+});
+
+//delete 2nd metod
+Route::get('/deleteelequent2/{id}', function($id){
+    // Post::destroy('id',$id);
+    Post::destroy($id);
+});
+
+//delete multiple posts 
+Route::get('/deleteelequent3/{id1}/{id2}/{id3}', function($id1, $id2, $id3){
+    // Post::destroy('id',$id);
+    Post::destroy($id1, $id2, $id3);
+});
+

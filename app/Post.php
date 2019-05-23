@@ -10,4 +10,10 @@ class Post extends Model
         protected $table = 'posts';
     //the table has to have a primarykey name id, if not has to be declared: 
         protected $primaryKey = 'id';
+    //make writable the columns of the post table
+        protected $fillable = [
+            'title',
+            'content',
+            'created_at'
+        ];
 }
