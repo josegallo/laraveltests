@@ -81,10 +81,9 @@ Route::get ('/deleteQuery', function(){
 */
 
 //read all the posts 
-
 use App\post;
 
-Route::get('read/', function(){
+Route::get('/read', function(){
     $posts = Post::all();
     foreach ($posts as $post) {
         echo "<ul> - " .$post->title . " " .$post->content . " created at: " .$post->created_at. "</ul>";  
@@ -92,7 +91,6 @@ Route::get('read/', function(){
 });
 
 //find and show all the posts 
-
 Route::get('/findPostTitle/{id}', function($id){
     $postFound = Post::find($id);
     return "Post Title: " . $postFound->title . " " . "Post Content: " . $postFound->content; 
@@ -121,7 +119,6 @@ Route::get('/insertbasic', function(){
 });
 
 //update Data
-
 Route::get('/updatebasicpost/{id}', function($id){
     $postToUpdate = Post::find($id);
     // return $postToUpdate;
@@ -131,7 +128,6 @@ Route::get('/updatebasicpost/{id}', function($id){
 });
 
 //create multiple records
-
 Route::get('/createonepost/{id}', function ($id){
     // $date = new DateTime();
     // $date = $date->format('Y-m-d H:i:s');
@@ -140,7 +136,6 @@ Route::get('/createonepost/{id}', function ($id){
 });
 
 //update
-
 Route::get('/updateeloquent/{id}', function($id){
     Post::where('id',$id)->where('is_admin',0)->update(['title'=>'Title Sup '. $id, 'content'=>'This is the new content updated for post '. $id]);
 });
@@ -151,7 +146,7 @@ Route::get('/deleteeloquent/{id}', function($id){
     $postToDelete->delete();
 });
 
-//delete 2nd metod
+//delete 2nd method
 Route::get('/deleteelequent2/{id}', function($id){
     // Post::destroy('id',$id);
     Post::destroy($id);
@@ -163,3 +158,41 @@ Route::get('/deleteelequent3/{id1}/{id2}/{id3}', function($id1, $id2, $id3){
     Post::destroy($id1, $id2, $id3);
 });
 
+//softdeletes
+Route::get('/softdeletes/{id}', function($id){
+    Post::find($id)->delete();
+});
+
+//show deleted posts method 1
+Route::get('/readsoftdeletedposts1',function(){
+    $softDeletedPosts = Post::withTrashed()->where('deleted_at','!=','NULL')->get();
+    // return $softDeletedPosts;
+    foreach ($softDeletedPosts as $post) {
+        echo "<ul> - " .$post->title . " " .$post->content . " deleted at: " .$post->deleted_at. "</ul>";  
+    }
+});
+
+//show deleted posts method 2
+Route::get('/readsoftdeletedposts2',function(){
+    $softDeletedPosts2 = Post::onlyTrashed()->get();
+    // return $softDeletedPosts;    
+    foreach ($softDeletedPosts2 as $post) {
+        echo "<ul> - " .$post->title . " " .$post->content . " deleted at: " .$post->deleted_at . "</ul>";  
+    }
+});
+
+//restore specific softtrashed
+Route::get('/restoresofttrashed/{id}', function($id){
+    // $postToRestore = Post::onlyTrashed()->where('id', $id )->get();
+    Post::onlyTrashed()->where('id', $id )->restore();
+});
+
+//delete permanently a record
+Route::get('forcedelete/{id}', function($id){
+    Post::where('id',$id)->forcedelete();
+});
+
+//delete permannetly softdeleted(trashed elements)
+Route::get('forcedeletetrashed', function(){
+    Post::onlyTrashed()->forcedelete();
+});
