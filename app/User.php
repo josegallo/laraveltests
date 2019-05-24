@@ -39,12 +39,22 @@ class User extends Authenticatable
 
     //one to one relationship
     public function post(){
-        // return $this->hasOne('App\Post','user_id');
         return $this->hasOne('App\Post'); //user_id by default as it is in migration ->hasMany('App\Post','user_id')
     }
 
     //one to many relationship
     public function posts(){
         return $this->hasMany('App\Post'); //user_id by default as it is in migration ->hasMany('App\Post','user_id')
+    }
+
+    //one to many relationship
+    public function showPostsOfUser(){
+        return $this->hasMany('App\Post');
+    }
+
+    //many to many relationship (pivot table role_user)
+    public function roles(){
+        // return $this->belongsToMany('App\Role');
+        return $this->belongsToMany('App\Role', 'role_user','user_id', 'role_id'); // (model to relate, pivot table, foreignkey of role, foreginkey of user)
     }
 }

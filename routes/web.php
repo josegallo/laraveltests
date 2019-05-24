@@ -201,7 +201,7 @@ Route::get('createuser/{name}/{email}/{password}', function($name, $email, $pass
 });
 
 //show all the users per user
-Route::get ('showpostperuser1/{id}',function($id){
+Route::get ('showpostsperuser1/{id}',function($id){
     $postPerUser = Post::where('user_id', $id)->get();
     return $postPerUser;
 });
@@ -217,7 +217,23 @@ Route::get ('show1postperuser/{id}',function($id){
     return User::find($id)->post;
 });
 
+//One to One reverse, show the user thats belongs the post
+Route::get ('showuserofpost/{id}',function($id){
+    return Post::find($id)->user;
+});
+
 //One to many relationship. show all posts per user
-Route::get ('showpostperuser2/{id}',function($id){
+Route::get ('showpostsperuser2/{id}',function($id){
     return User::find($id)->posts;
+});
+
+//One to many relationship. show all posts per user, other option
+Route::get ('showpostsperuser3/{id}',function($id){
+    return User::find($id)->showPostsOfUser;
+});
+
+use App\Role;
+//Many to many relationship, show all roles of a user (pivot table role_user)
+Route::get('showrolesperuser/{id}', function($id){
+    return User::find($id)->roles;
 });

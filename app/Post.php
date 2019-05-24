@@ -22,4 +22,8 @@ class Post extends Model
     use SoftDeletes;
     //let know laravel treat this table as a timestamp column, declare the storage format of the column
     protected $dates = ['deleted_at'];
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
 }
