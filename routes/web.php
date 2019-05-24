@@ -237,3 +237,8 @@ use App\Role;
 Route::get('showrolesperuser/{id}', function($id){
     return User::find($id)->roles;
 });
+
+//Many to many relationship (inverse), show all user with an specific role (pivot table role_user)
+Route::get('showusersperrole/{id}', function($id){
+    return Role::find($id)->showUsersPerRole;
+});

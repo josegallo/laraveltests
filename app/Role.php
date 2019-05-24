@@ -11,4 +11,9 @@ class Role extends Model
         'id',
         'name'
     ];
+
+    //show users of role
+    public function showUsersPerRole(){
+        return $this->belongsToMany('App\User');
+    }
 }
