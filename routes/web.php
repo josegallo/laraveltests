@@ -248,3 +248,23 @@ use App\Country;
 route::get('/showPostPerCountry/{id}', function($id){
     return Country::find($id)->showPostsPerCountry;
 });
+
+use App\Photo2;
+
+//Polymorphic Relationship with photos->user
+route::get('/showphotosperuser/{id}', function($id){
+    return User::find($id)->showPhotosPerUser;
+    // foreach ($photos as $photo) {
+    //     echo $photo->path;
+    // }
+});
+
+//Polymorphic Relationship with photos->post
+route::get('/showPostsPerUser/{id}', function($id){
+    return Post::find($id)->showPhotosPerPost;
+    // foreach ($photos as $photo) {
+    //     echo $photo->path;
+    // }
+});
+
+

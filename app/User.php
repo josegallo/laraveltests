@@ -58,4 +58,11 @@ class User extends Authenticatable
         //to costumize tables name and columns follow the format bellow
         // return $this->belongsToMany('App\Role', 'role_user','user_id', 'role_id'); // (model to relate, pivot table, foreignkey of role, foreginkey of user)
     }
+    
+    //polymorphic relationship with photos(imageable)
+    public function showPhotosPerUser(){
+        return $this->morphMany('App\Photo2', 'imageable');
+    }
+
+    
 }
