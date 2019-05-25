@@ -257,6 +257,10 @@ route::get('/showphotoperUser/{id}', function($id){
 } );
 
 route::get('/showphotoperteacher/{id}', function($id){
-    return Teacher::find($id)->showPhotosPerTeacher;
+    // return Teacher::find($id)->showPhotosPerTeacher;
+    $photos = Teacher::find($id)->showPhotosPerTeacher;
+    foreach ($photos as $photo) {
+        echo $photo->path;
+    }
 } );
 
