@@ -266,5 +266,3 @@ route::get('/showPostsPerUser/{id}', function($id){
     //     echo $photo->path;
     // }
 });
-
-
