@@ -242,3 +242,9 @@ Route::get('showrolesperuser/{id}', function($id){
 Route::get('showusersperrole/{id}', function($id){
     return Role::find($id)->showUsersPerRole;
 });
+
+use App\Country;
+//has Many Through
+route::get('/showPostPerCountry/{id}', function($id){
+    return Country::find($id)->showPostsPerCountry;
+});
