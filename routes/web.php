@@ -266,3 +266,8 @@ route::get('/showPostsPerUser/{id}', function($id){
     //     echo $photo->path;
     // }
 });
+
+//Polymorphic, retreive posts of photo
+route:: get ('/showautorsofphoto/{id}', function ($id){
+    return Photo2::findOrFail($id)->imageable;
+});
