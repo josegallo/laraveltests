@@ -248,3 +248,15 @@ use App\Country;
 route::get('/showPostPerCountry/{id}', function($id){
     return Country::find($id)->showPostsPerCountry;
 });
+
+use App\Teacher;
+use App\Photo;
+
+route::get('/showphotoperUser/{id}', function($id){
+    return User::find($id)->showPhotosPerUser;
+} );
+
+route::get('/showphotoperteacher/{id}', function($id){
+    return Teacher::find($id)->showPhotosPerTeacher;
+} );
+
