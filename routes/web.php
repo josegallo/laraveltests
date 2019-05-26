@@ -251,23 +251,63 @@ route::get('/showPostPerCountry/{id}', function($id){
 
 use App\Photo2;
 
-//Polymorphic Relationship with photos->user
-route::get('/showphotosperuser/{id}', function($id){
+//Polymorphic (one to many) Relationship with photos->user
+Route::get('/showphotosperuser/{id}', function($id){
     return User::find($id)->showPhotosPerUser;
     // foreach ($photos as $photo) {
     //     echo $photo->path;
     // }
 });
 
-//Polymorphic Relationship with photos->post
-route::get('/showPostsPerUser/{id}', function($id){
+//Polymorphic (one to many) Relationship with photos->post
+Route::get('/showphotosperpost/{id}', function($id){
     return Post::find($id)->showPhotosPerPost;
     // foreach ($photos as $photo) {
     //     echo $photo->path;
     // }
 });
 
-//Polymorphic, retreive posts of photo
-route:: get ('/showautorsofphoto/{id}', function ($id){
+//Polymorphic (one to many), retreive posts of photo
+Route:: get ('/showautorsofphoto/{id}', function ($id){
     return Photo2::findOrFail($id)->imageable;
+});
+
+use App\Video;
+use App\Tag;
+use App\Taggable;
+//Polymorphic (many to many), retrieve tags by video
+Route:: get('showTagsByVideo/{id}', function ($id){
+    // return Video::findOrFail($id)->showTagsByVideo;
+    $tags = Video::findOrFail($id)->showTagsByVideo;
+    foreach ($tags as $tag ) {
+        echo $tag->name . "<br>";
+    }
+});
+
+//Polymorphic (many to many), retrieve tags by posts
+Route:: get('showTagsByPost/{id}', function ($id){
+    // return Post::findOrFail($id)->showTagsByPost;
+    $tags = Post::findOrFail($id)->showTagsByPost;
+    foreach ($tags as $tag ) {
+        echo $tag->name . "<br>";
+    }
+});
+
+//Polymorphic (many to many), retrieve videos by tag
+Route:: get('showVideosByTag/{id}', function ($id){
+    return Tag::findOrFail($id)->showVideosByTag;
+    $videos = Tag::findOrFail($id)->showVideosByTag;
+    foreach ($videos as $video ) {
+        echo $video->name . "<br>";
+    }
+});
+
+//Polymorphic (many to many), retrieve posts by tag
+Route:: get('showPostsByTag/{id}', function ($id){
+    // return Tag::findOrFail($id)->showPostsByTag;
+    // $posts = Tag::find($id)->showPostsByTag;
+    $posts = Tag::findOrFail($id)->showPostsByTag;
+    foreach ($posts as $post ) {
+        echo $post->title . "<br>";
+    }
 });
