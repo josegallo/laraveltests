@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/contact', 'PostController@contact');
 
-Route::get('/post/{id}/{name}/{surname}', 'PostController@showPost');
+Route::get('/post/{id}/ {name}/{surname}', 'PostController@showPost');
 
 Route::resource('posts','PostController');
 
@@ -261,10 +261,11 @@ Route::get('/showphotosperuser/{id}', function($id){
 
 //Polymorphic (one to many) Relationship with photos->post
 Route::get('/showphotosperpost/{id}', function($id){
-    return Post::find($id)->showPhotosPerPost;
-    // foreach ($photos as $photo) {
-    //     echo $photo->path;
-    // }
+    // return Post::find($id)->showPhotosPerPost;
+    $photos = Post::find($id)->showPhotosPerPost;
+    foreach ($photos as $photo) {
+        echo $photo->path ."<br>";
+    }
 });
 
 //Polymorphic (one to many), retreive posts of photo
