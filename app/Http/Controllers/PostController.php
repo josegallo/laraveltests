@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Post;
+use App\User;
 
 class PostController extends Controller
 {
@@ -24,7 +26,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return "I am the method that creates something! YO!!!";
+        return view('posts.create');
     }
 
     /**
@@ -35,7 +37,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request->get('title'); //returns a string
+        // return $request->title; //also works, return a strig
+        // return $request->all(); //it is a array
+        // return $request->all()['title']; //also works, it is a string
+
+        //1st way
+        // $post = new Post;
+        // $post->user_id = $request->user_id;
+        // $post->title = $request->title;
+        // $post->content = $request->content;
+        // $post->save();
+
+        //2nd way and best way
+        Post::create($request->all());
+        return 'Post created';
+
     }
 
     /**

@@ -15,15 +15,14 @@ class Post extends Model
     protected $fillable = [
             'title',
             'content',
-            'created_at',
-            'user_id'
+            'user_id',
         ];
     //use SoftDeletes for adding post to trash (not permanetly)
     use SoftDeletes;
     //let know laravel treat this table as a timestamp column, declare the storage format of the column
     protected $dates = ['deleted_at'];
 
-    public function user(){
+    public function users(){
         return $this->belongsTo('App\User');
     }
 }

@@ -47,7 +47,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Post'); //user_id by default as it is in migration ->hasMany('App\Post','user_id')
     }
 
-    //one to many relationship
+    //one to many relationship  
     public function showPostsOfUser(){
         return $this->hasMany('App\Post');
     }

@@ -19,7 +19,7 @@ Route::get('/contact', 'PostController@contact');
 
 Route::get('/post/{id}/{name}/{surname}', 'PostController@showPost');
 
-Route::resource('posts','PostController');
+
 
 // Route::get('/about', function () {
 //     return "hi! this is about page";
@@ -264,3 +264,10 @@ route::get('/showphotoperteacher/{id}', function($id){
     }
 } );
 
+/*
+|--------------------------------------------------------------------------
+|Little CRUD Application
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('posts','PostController');
