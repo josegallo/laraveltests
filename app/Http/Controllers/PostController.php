@@ -65,7 +65,6 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         return view('posts.show',compact('post'));
-
     }
 
     /**
@@ -76,7 +75,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        return "this is for edit post number " . $id;
+        $post = Post::findOrFail($id);
+        return view('posts.edit',compact('post'));
     }
 
     /**
@@ -88,7 +88,13 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    
+        // dd($request->all());
+        $post = Post::findOrFail($id);
+        // dd($post);
+        $post->update($request->all());
+        // Post::update($request->all());
+        return redirect ('/posts');
     }
 
     /**
