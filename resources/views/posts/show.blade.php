@@ -6,6 +6,8 @@
         <li> Tittle: {{ $post->title}} </li>
         <li> Content:  {{ $post->content}} </li>
         <li> id: {{ $post->id}} </li>
+        <li> user_id: {{ $post->user_id}} </li>
+        <a href = "{{route('posts.edit',$post->id)}} " >Edit post </a>
     </ul>
 
 @stop
