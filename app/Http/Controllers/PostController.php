@@ -15,7 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return "this is the index and it is working";
+        $posts = Post::all(); //posts is an array
+        return view('posts.index', compact('posts'));
         
     }
 
@@ -50,9 +51,8 @@ class PostController extends Controller
         // $post->save();
 
         //2nd way and best way
-        Post::create($request->all());
-        return 'Post created';
-
+        Post::create($request->all()); //request->all is an array
+        return redirect ('/posts');
     }
 
     /**
