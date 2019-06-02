@@ -9,7 +9,7 @@
     @foreach ($posts as $post) 
         <li>
         @php ($i++)
-        Post {{$i}} : {{ $post->title}} (id: {{ $post->id}})
+        Post {{$i}} : <a href = "{{ route('posts.show', $post->id)}}"> {{ $post->title}} </a> (id: {{ $post->id}})
         </li>
     @endforeach
     </ul>
